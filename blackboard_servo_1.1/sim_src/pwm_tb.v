@@ -3,24 +3,21 @@
 
 module pwm_tb();
 
-    reg  clk_100M = 1'b0;
+    reg  clk_1_6k = 1'b0;
     reg  rst      = 1'b1;
 
     wire pwm_sig;
 
-    always #5 clk_100M <= ~clk_100M;
+    always # clk_1_6k <= ~clk_1_6k;
 
-    pwm
-    #(
-        .CLK_DIV( 2000000 ),
-        .WIDTH  ( 8       )
-    )
+    pwm #( .RES(5) )
     dut
     (
-        .clk        ( clk_100M ),
+        .clk        ( clk_1_6k ),
         .rst        ( rst      ),
         .en         ( 1'b1     ),
-        .pulsewidth ( 8'd100   ),
+        .pulsewidth ( 5'd25    ),
+        .period     ( 5'd32    ),
         .pwm_sig    ( pwm_sig  )
     );
 
