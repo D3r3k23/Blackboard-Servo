@@ -3,24 +3,31 @@
 
 module clk_divider_tb();
 
-    reg  clk_100M = 1'b0;
-    reg  rst      = 1'b1;
-
+    reg  clk_in;
+    reg  rst;
     wire clk_out;
 
-    always #5 clk_100M <= ~clk_100M;
+    // 100 MHz clock gen
+    initial   clk_in = 1'b0;
+    always #5 clk_in <= ~clk_in;
 
-    clk_divider #( .DIV(62500))
-    dut
+    clk_divider dut
     (
-        .clk_in  ( clk_100M ),
+        .clk_in  ( clk_in   ),
         .rst     ( rst      ),
-        .clk_out ( clk_out  )
+        .clk_div ( 1000     ),
+        .clk_out ( clk_out  )  // 100 kHz
     );
 
-    initial
-    begin
-        #50 rst <= 1'b0;
-    end
+    initial begin : test
 
-endmodule
+        rst = 1'b1;
+        #50
+        rst = 1'b0;
+        
+        #80000
+        $finish;
+
+    end // test
+
+endmodule // clk_divider_tb
