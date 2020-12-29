@@ -16,9 +16,9 @@ int main(void)
   
     while(1)
     {
-        servo_set_angle(0);
+        servo_set_angle(1, 0);
         delay(5);
-        servo_set_angle(180);
+        servo_set_angle(1, 180);
         delay(5);
     }
 
