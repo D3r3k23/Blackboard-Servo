@@ -30,10 +30,10 @@ module servo_controller_tb();
     initial begin : test
 
         rst = 1'b1;
+        #50
+        rst   = 1'b0;
         speed = 4'd10;
         angle = 8'd90;
-        #50
-        rst = 1'b0;
 
         #600000000
         $finish;
