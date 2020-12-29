@@ -29,16 +29,16 @@ module pwm_tb();
     initial begin : test
 
         rst = 1'b1;
-        pulsewidth = 12'd100;
         #50
         rst = 1'b0;
 
+        pulsewidth = 12'd100;
         #90000
         pulsewidth = 12'd150;
         #90000
         pulsewidth = 12'd200;
-
         #90000
+        
         $finish;
 
     end // test
