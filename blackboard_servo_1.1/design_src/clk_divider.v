@@ -1,14 +1,17 @@
 
 module clk_divider
 (
-    input wire          clk_in,
-    input wire          rst,
-    input wire [31 : 0] clk_div,
-    output reg          clk_out
+    input  wire          clk_in,
+    input  wire          rst,
+    input  wire [31 : 0] clk_div,
+    output reg           clk_out
 );
 
-    integer TC = (clk_div / 2) - 1;
+    integer TC;
     integer count;
+
+    always @*
+        TC = (clk_div / 2) - 1;
 
     wire terminate = (count == TC);
 
