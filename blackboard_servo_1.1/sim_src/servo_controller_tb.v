@@ -31,7 +31,8 @@ module servo_controller_tb();
 
         rst = 1'b1;
         #50
-        rst   = 1'b0;
+        rst = 1'b0;
+        
         speed = 4'd10;
         angle = 8'd90;
 
