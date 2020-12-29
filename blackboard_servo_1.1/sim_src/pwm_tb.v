@@ -1,29 +1,46 @@
 
-`timescale 1ns / 1ps
+`timescale 1us / 1ns
 
 module pwm_tb();
 
-    reg  clk_1_6k = 1'b0;
-    reg  rst      = 1'b1;
+    // Inputs
+    reg pwm_clk;
+    reg rst;
 
+    reg [11 : 0] pulsewidth;
+
+    // Output
     wire pwm_sig;
 
-    always # clk_1_6k <= ~clk_1_6k;
+    // 100 kHz clock gen
+    initial   pwm_clk = 1'b0;
+    always #5 pwm_clk <= ~pwm_clk;
 
-    pwm #( .RES(5) )
-    dut
+    pwm dut
     (
-        .clk        ( clk_1_6k ),
-        .rst        ( rst      ),
-        .en         ( 1'b1     ),
-        .pulsewidth ( 5'd25    ),
-        .period     ( 5'd32    ),
-        .pwm_sig    ( pwm_sig  )
+        .clk        ( pwm_clk    ),
+        .rst        ( rst        ),
+        .en         ( 1'b1       ),
+        .period     ( 12'd2000   ),
+        .pulsewidth ( pulsewidth ),
+        .pwm_sig    ( pwm_sig    )
     );
 
-    initial
-    begin
-        #50 rst <= 1'b0;
-    end
+    initial begin : test
 
-endmodule
+        rst = 1'b1;
+        pulsewidth = 12'd100;
+        #50
+        rst = 1'b0;
+
+        #90000
+        pulsewidth = 12'd150;
+        #90000
+        pulsewidth = 12'd200;
+
+        #90000
+        $finish;
+
+    end // test
+
+endmodule // pwm_tb
