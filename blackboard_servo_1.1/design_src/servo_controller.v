@@ -1,7 +1,9 @@
 
 module servo_controller
 (
-    input  wire         clk_100M, rst, en,
+    input  wire         clk_100M,
+    input  wire         rst,
+    input  wire         en,
     input  wire [7 : 0] angle, // 0 - 180
     input  wire [3 : 0] speed, // 0 - 10
     output wire         out_sig
@@ -24,7 +26,6 @@ module servo_controller
     reg  [11 : 0] pulsewidth = 0;
 
     always @( posedge rotation_clk )
-    begin
         if (rst)
             pulsewidth <= 0;
         else
@@ -44,7 +45,6 @@ module servo_controller
             else
                 pulsewidth <= pulsewidth;
         end
-    end
 
     wire pwm_clk;
 
