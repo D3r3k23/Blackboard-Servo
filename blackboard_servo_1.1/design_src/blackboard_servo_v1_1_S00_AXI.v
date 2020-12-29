@@ -12,10 +12,10 @@ module blackboard_servo_v1_1_S00_AXI
 )(
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-        output wire [15 : 0] SERVO_CTRL_1,
-        output wire [15 : 0] SERVO_CTRL_2,
-        output wire [15 : 0] SERVO_CTRL_3,
-        output wire [15 : 0] SERVO_CTRL_4,
+        output wire [12 : 0] SERVO_CTRL_1, // 0x43C00000
+        output wire [12 : 0] SERVO_CTRL_2, // 0x43C00004
+        output wire [12 : 0] SERVO_CTRL_3, // 0x43C00008
+        output wire [12 : 0] SERVO_CTRL_4, // 0x43C0000C
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -392,18 +392,18 @@ begin
       // output the read dada 
       if (slv_reg_rden)
         begin
-          axi_rdata <= reg_data_out;     // register read data
+          axi_rdata <= reg_data_out; // register read data
         end   
     end
 end
 
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-    assign SERVO_CTRL_1 = slv_reg0[23 : 0]; // 0x43C00000
-    assign SERVO_CTRL_2 = slv_reg1[23 : 0]; // 0x43C00004
-    assign SERVO_CTRL_3 = slv_reg2[23 : 0]; // 0x43C00008
-    assign SERVO_CTRL_4 = slv_reg3[7  : 0]; // 0x43C0000C
+    assign SERVO_CTRL_1 = slv_reg0[12 : 0];
+    assign SERVO_CTRL_2 = slv_reg1[12 : 0];
+    assign SERVO_CTRL_3 = slv_reg2[12 : 0];
+    assign SERVO_CTRL_4 = slv_reg3[12 : 0];
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 
-endmodule
+endmodule // blackboard_servo_v1_1_S00_AXI
